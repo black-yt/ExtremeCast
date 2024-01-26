@@ -1,6 +1,7 @@
 # Exformer
 
-Download required data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1UyLCFGxZnBx-sCIVr8snxkWNUJAqnyKu)
+### 1. Download Data and Checkpoints
+Download required data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1UyLCFGxZnBx-sCIVr8snxkWNUJAqnyKu).
 
 Store files according to the following structure:
 
@@ -25,7 +26,12 @@ Store files according to the following structure:
 ├── run.py
 └── utils.py </pre>
 
+### 2. Inference
+Run run.py on GPU device.
 
-Run run.py on GPU device
+For the input and output of the model, their dimensions are [B, C, H, W], where C=69, each channel corresponds to a weather variable, and their correspondence is shown in the [variable-order](https://docs.google.com/spreadsheets/d/1KNY0P4_zkH9r1RIEu_VhvZic65Apz9BX/edit?usp=sharing&ouid=117415241894938396384&rtpof=true&sd=true).
 
-For the input and output of the model, their dimensions are [B, C, H, W], where C=69, each channel corresponds to a weather variable, and their correspondence is shown in the [variable-order](https://docs.google.com/spreadsheets/d/1KNY0P4_zkH9r1RIEu_VhvZic65Apz9BX/edit?usp=sharing&ouid=117415241894938396384&rtpof=true&sd=true)
+### 3. Result
+If it runs correctly, you will see the following picture in the current directory.
+
+![1684166216761](http://www.mobiletrain.org/tywzt/ty30.jpg)
