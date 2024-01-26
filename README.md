@@ -34,4 +34,4 @@ For the input and output of the model, their dimensions are [B, C, H, W], where 
 ### 3. Result
 If it runs correctly, you will see the following picture in the current directory.
 
-![1684166216761](http://www.mobiletrain.org/tywzt/ty30.jpg)
+![1684166216761](images/t2m_visualization.png)
