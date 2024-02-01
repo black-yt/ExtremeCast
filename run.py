@@ -1,5 +1,5 @@
 import torch
-from BoostEns import ExEnsemble
+from ExEnsemble import ExEnsemble
 import numpy as np
 from utils import load_model_d, load_model_g, merge_pred, normalize_numpy, inverse_normalize_torch, diffusion_inverse_transform, get_scale
 from pic import pic_process
