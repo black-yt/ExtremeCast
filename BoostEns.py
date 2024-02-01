@@ -16,9 +16,9 @@ def SortIndex(input):
     return ranks
 
 
-def BoostEnsemble(pred, ensembles_nums=50, ensembles_scale=1, device='gpu'):
+def ExEnsemble(pred, ensembles_nums=50, ensembles_scale=1, device='gpu'):
     '''
-    Apply BoostEnsemble to the predictions.
+    Apply ExEnsemble to the predictions.
     Args:
         pred (torch.Tensor): Tensor of size [B, C, H, W]. The input predictions.
         ensembles_nums (int): Number of ensembles (default: 50).
@@ -71,5 +71,5 @@ if __name__ == "__main__":
     print(device)
     pred = torch.randn(1, 69, 721, 1440).to(device)
     std = torch.randn(1, 69, 721, 1440).to(device)
-    out = BoostEnsemble(pred, 50, std)
+    out = ExEnsemble(pred, 50, std)
     print(out.shape)

@@ -184,7 +184,7 @@ def merge_pred(diffusion_pred, pred, climat, d_use_k=1.0):
 
 def get_scale(pred, div_rate=3.0):
     '''
-    The scale parameter used in the boostensemble module can be hyperparameters or learnable parameters. 
+    The scale parameter used in the ExEnsemble module can be hyperparameters or learnable parameters. 
     We use "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics" to learn scale.
     '''
     max_logvar_ = torch.tensor(max_logvar, device=pred.device)

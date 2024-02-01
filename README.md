@@ -1,4 +1,4 @@
-# Exformer
+# ExtremeCast
 
 ### 1. Download Data and Checkpoints
 Download required data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1UyLCFGxZnBx-sCIVr8snxkWNUJAqnyKu).

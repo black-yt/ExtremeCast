@@ -69,7 +69,7 @@ def pic_process(pred_d, pred_g, pred_e):
     ax.tick_params(labelsize=50)
     ax.gridlines(linestyle='--')
     ax.set_global()
-    ax.set_title("BoostEnsemble", fontsize=60)
+    ax.set_title("ExEnsemble", fontsize=60)
     d = np.percentile(np.abs(weather_data_2-weather_data_1), 99.9)
     im = ax.imshow(weather_data_2-weather_data_1, cmap='RdBu_r', extent=[0, 360, -90, 90], transform=ccrs.PlateCarree(), norm=colors.Normalize(-d, d))
     cbar = plt.colorbar(
@@ -89,4 +89,4 @@ def pic_process(pred_d, pred_g, pred_e):
 
     print("Maximum and minimum temperatures in the modele_d prediction", round(weather_data_0.min(),2), round(weather_data_0.max(),2))
     print("Maximum and minimum temperatures in the modele_g prediction", round(weather_data_1.min(),2), round(weather_data_1.max(),2))
-    print("Maximum and minimum temperatures in the BoostEnsemble prediction", round(weather_data_2.min(),2), round(weather_data_2.max(),2))
+    print("Maximum and minimum temperatures in the ExEnsemble prediction", round(weather_data_2.min(),2), round(weather_data_2.max(),2))

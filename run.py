@@ -1,5 +1,5 @@
 import torch
-from BoostEns import BoostEnsemble
+from BoostEns import ExEnsemble
 import numpy as np
 from utils import load_model_d, load_model_g, merge_pred, normalize_numpy, inverse_normalize_torch, diffusion_inverse_transform, get_scale
 from pic import pic_process
@@ -44,11 +44,11 @@ if __name__ == "__main__":
     climat = torch.from_numpy(climat).to(device)
     model_g_pred = merge_pred(diffusion_out, model_d_pred, climat)
 
-    # Run BoostEnsemble
-    print("[3] BoostEnsemble")
+    # Run ExEnsemble
+    print("[3] ExEnsemble")
     scale = get_scale(model_g_pred)
-    # Setting device='gpu' can speed up BoostEnsemble, but it also requires more memory.
-    ens_pred = BoostEnsemble(pred=model_g_pred[:,:69], ensembles_scale=scale, device='cpu')
+    # Setting device='gpu' can speed up ExEnsemble, but it also requires more memory.
+    ens_pred = ExEnsemble(pred=model_g_pred[:,:69], ensembles_scale=scale, device='cpu')
 
     # Check mse to ensure correct operation. When running correctly, the MSE is about 0.0051
     target = torch.from_numpy(target).to(device)
