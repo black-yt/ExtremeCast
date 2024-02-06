@@ -1,8 +1,9 @@
-# ExtremeCast
-## ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast
+# ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast
 
-[Paper](https://arxiv.org/abs/2402.01295).
+## Paper
+[pdf](https://arxiv.org/abs/2402.01295).
 
+## Usage
 ### 1. Download Data and Checkpoints
 Download required data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1UyLCFGxZnBx-sCIVr8snxkWNUJAqnyKu).
 
@@ -39,7 +40,7 @@ If it runs correctly, you will see the following picture in the current director
 
 ![1684166216761](images/t2m_visualization.png)
 
-
+## Citation
 ```bibtex
 @misc{xu2024extremecast,
       title={ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast}, 
