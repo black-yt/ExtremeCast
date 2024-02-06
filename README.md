@@ -1,4 +1,7 @@
 # ExtremeCast
+## ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast
+
+[Paper](https://arxiv.org/abs/2402.01295).
 
 ### 1. Download Data and Checkpoints
 Download required data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1UyLCFGxZnBx-sCIVr8snxkWNUJAqnyKu).
@@ -35,3 +38,15 @@ For the input and output of the model, their dimensions are [B, C, H, W], where 
 If it runs correctly, you will see the following picture in the current directory.
 
 ![1684166216761](images/t2m_visualization.png)
+
+
+```bibtex
+@misc{xu2024extremecast,
+      title={ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast}, 
+      author={Wanghan Xu and Kang Chen and Tao Han and Hao Chen and Wanli Ouyang and Lei Bai},
+      year={2024},
+      eprint={2402.01295},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
