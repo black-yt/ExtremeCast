@@ -42,12 +42,10 @@ If it runs correctly, you will see the following picture in the current director
 
 ## Citation
 ```bibtex
-@misc{xu2024extremecast,
-      title={ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast}, 
-      author={Wanghan Xu and Kang Chen and Tao Han and Hao Chen and Wanli Ouyang and Lei Bai},
-      year={2024},
-      eprint={2402.01295},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@article{xu2024extremecast,
+  title={ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast},
+  author={Xu, Wanghan and Chen, Kang and Han, Tao and Chen, Hao and Ouyang, Wanli and Bai, Lei},
+  journal={arXiv preprint arXiv:2402.01295},
+  year={2024}
 }
 ```
