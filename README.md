@@ -5,7 +5,7 @@
 
 ## Usage
 ### 1. Download Data and Checkpoints
-Download required data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1UyLCFGxZnBx-sCIVr8snxkWNUJAqnyKu).
+Download required data and checkpoints from [GoogleDrive](https://drive.google.com/drive/folders/1UyLCFGxZnBx-sCIVr8snxkWNUJAqnyKu). (When applying for permission, could you please briefly explain your occupation such as student, corporate employee, research institution staff, etc., and the purpose of using the model? Thank you for your cooperation!)
 
 Store files according to the following structure:
 
