@@ -53,25 +53,23 @@ def SEDI(pred_real, gt_real, month):
             gt_ex = (gt_real[:, ii] > SEDI_th).float()
             pred_ex = (pred_real[:, ii] > SEDI_th).float()
 
-            FP = (pred_ex-gt_ex == 1).float().sum() # pred = 1; tar = 0
-            TN = (pred_ex+gt_ex == 0).float().sum() # pred = 0; tar = 0
-            TP = (pred_ex+gt_ex == 2).float().sum() # pred = 1; tar = 1
-            FN = (gt_ex-pred_ex == 1).float().sum() # pred = 0; tar = 1
+            FP = torch.sum((pred_ex-gt_ex == 1).float(), dim=(-2, -1)) # pred = 1; tar = 0
+            TN = torch.sum((pred_ex+gt_ex == 0).float(), dim=(-2, -1)) # pred = 0; tar = 0
+            TP = torch.sum((pred_ex+gt_ex == 2).float(), dim=(-2, -1)) # pred = 1; tar = 1
+            FN = torch.sum((gt_ex-pred_ex == 1).float(), dim=(-2, -1)) # pred = 0; tar = 1
 
-            if FP == 0:
-                FP += 1
-            if TN == 0:
-                TN += 1
-            if TP == 0:
-                TP += 1
-            if FN == 0:
-                FN += 1
+            FP = torch.where(FP == 0.0, torch.ones_like(FP), FP) # torch.Size([B])
+            TN = torch.where(TN == 0.0, torch.ones_like(TN), TN)
+            TP = torch.where(TP == 0.0, torch.ones_like(TP), TP)
+            FN = torch.where(FN == 0.0, torch.ones_like(FN), FN)
 
             F = FP/(FP+TN)
             H = TP/(TP+FN)
 
             SEDI = (torch.log(F)-torch.log(H)-torch.log(1-F)+torch.log(1-H))/ \
-                    (torch.log(F)+torch.log(H)+torch.log(1-F)+torch.log(1-H))
+                   (torch.log(F)+torch.log(H)+torch.log(1-F)+torch.log(1-H))
+            
+            SEDI = torch.mean(SEDI, dim=0)
             
             sedi_list.append(SEDI.item())
         sedi_list_all.append(sedi_list)
@@ -81,8 +79,9 @@ def SEDI(pred_real, gt_real, month):
 
 if __name__ == "__main__":
     # The 8 channels are u10, v10, t2m, msl, tp6h, z500, q850, t850 respectively.
-    pred_real = torch.randn(1, 8, 721, 1440) # "_real" represents the real value, not the normalized value. For example, for t2m, its value is about 270.
-    tar_real = torch.randn(1, 8, 721, 1440)
+    pred_real = torch.randn(4, 8, 721, 1440) # [Batch, Channel, H, W]
+    tar_real = torch.randn(4, 8, 721, 1440)
+    # "_real" represents the real value, not the normalized value. For example, for t2m, its value is about 270.
     month = 1 # January
 
     rqe = RQE(pred_real, tar_real) # A list of length 8, represents the RQE of u10, v10, t2m, msl, tp6h, z500, q850, t850 respectively.
