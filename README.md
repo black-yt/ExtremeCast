@@ -1,7 +1,13 @@
 # ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast
 
-## Paper
-[pdf](https://arxiv.org/abs/2402.01295).
+## Abstract
+
+Data-driven weather forecast based on machine learning (ML) has experienced rapid development and demonstrated superior performance in the global medium-range forecast compared to traditional physics-based dynamical models. However, most of these ML models struggle with accurately predicting extreme weather, which is closely related to the extreme value prediction. Through mathematical analysis, we prove that the use of symmetric losses, such as the Mean Squared Error (MSE), leads to biased predictions and underestimation of extreme values. To address this issue, we introduce Exloss, a novel loss function that performs asymmetric optimization and highlights extreme values to obtain accurate extreme weather forecast. Furthermore, we introduce a training-free extreme value enhancement strategy named ExEnsemble, which increases the variance of pixel values and improves the forecast robustness. Combined with an advanced global weather forecast model, extensive experiments show that our solution can achieve state-of-the-art performance in extreme weather prediction, while maintaining the overall forecast accuracy comparable to the top medium-range forecast models.
+
+![abs](images/exloss.png)
+
+
+### [Paper](https://arxiv.org/abs/2402.01295)
 
 ## Usage
 ### 1. Download Data and Checkpoints
