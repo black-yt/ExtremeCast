@@ -1,4 +1,4 @@
-# ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast
+# ExtremeCast: Boosting Extreme Value Prediction for Global Weather Forecast [[Paper](https://arxiv.org/abs/2402.01295)]
 
 ## Abstract
 
@@ -6,8 +6,6 @@ Data-driven weather forecast based on machine learning (ML) has experienced rapi
 
 ![abs](images/exloss.png)
 
-
-### [Paper](https://arxiv.org/abs/2402.01295)
 
 ## Usage
 ### 1. Download Data and Checkpoints
