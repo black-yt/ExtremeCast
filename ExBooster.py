@@ -16,28 +16,28 @@ def SortIndex(input):
     return ranks
 
 
-def ExEnsemble(pred, ensembles_nums=50, ensembles_scale=1, device='gpu'):
+def ExBooster(pred, samplings_nums=50, noise_scale=1, device='gpu'):
     '''
-    Apply ExEnsemble to the predictions.
+    Apply ExBooster to the predictions.
     Args:
         pred (torch.Tensor): Tensor of size [B, C, H, W]. The input predictions.
-        ensembles_nums (int): Number of ensembles (default: 50).
-        ensembles_scale (float or torch.Tensor): Scaling factor for ensembles. It can be a real number or a tensor of size [B, C, H, W] (default: 1).
+        sampling_nums (int): Number of samplings (default: 50).
+        noise_scale (float or torch.Tensor): Scaling factor for noise. It can be a real number or a tensor of size [B, C, H, W] (default: 1).
     Returns:
-        torch.Tensor: Tensor of size [B, C, H, W]. The ensemble boosted predictions.
+        torch.Tensor: Tensor of size [B, C, H, W]. The extreme boosted predictions.
     '''
 
     if device == 'cpu':
         original_device = pred.device
         pred = pred.cpu()
         try:
-            ensembles_scale = ensembles_scale.cpu()
+            noise_scale = noise_scale.cpu()
         except:
             pass
 
     B, C, H, W = pred.shape
 
-    scale = ensembles_scale * torch.ones_like(pred) # [B, C, H, W]
+    scale = noise_scale * torch.ones_like(pred) # [B, C, H, W]
 
     # SortIndex()
     idx = SortIndex(pred.flatten(2,3)) # [B, C, H*W]
@@ -45,15 +45,15 @@ def ExEnsemble(pred, ensembles_nums=50, ensembles_scale=1, device='gpu'):
     # Sample()
     pred = pred.unsqueeze(2) # [B, C, 1, H, W]
     scale = scale.unsqueeze(2) # [B, C, 1, H, W]
-    disturbance = torch.randn(B, C, ensembles_nums, H, W, device=pred.device) * scale 
-    ens = pred + disturbance # [B, C, ensembles_nums, H, W]
+    disturbance = torch.randn(B, C, samplings_nums, H, W, device=pred.device) * scale 
+    ens = pred + disturbance # [B, C, samplings_nums, H, W]
 
     # Sort()
-    sorted_ens, _ = torch.sort(ens.flatten(2,4)) # [B, C, ensembles_nums*H*W]
-    sorted_ens = sorted_ens.reshape(B, C, H*W, ensembles_nums) # [B, C, H*W, ensembles_nums]
+    sorted_ens, _ = torch.sort(ens.flatten(2,4)) # [B, C, samplings_nums*H*W]
+    sorted_ens = sorted_ens.reshape(B, C, H*W, samplings_nums) # [B, C, H*W, samplings_nums]
 
     # Partition() and Median()
-    k = int(0.5 * ensembles_nums) # ensembles_nums / 2
+    k = int(0.5 * samplings_nums) # samplings_nums / 2
     sorted_ens_mid, _ = torch.kthvalue(sorted_ens, k, -1) # [B, C, H*W]
 
     # GetByIndex()
@@ -71,5 +71,5 @@ if __name__ == "__main__":
     print(device)
     pred = torch.randn(1, 69, 721, 1440).to(device)
     std = torch.randn(1, 69, 721, 1440).to(device)
-    out = ExEnsemble(pred, 50, std)
+    out = ExBooster(pred, 50, std)
     print(out.shape)

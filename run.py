@@ -1,5 +1,5 @@
 import torch
-from ExEnsemble import ExEnsemble
+from ExBooster import ExBooster
 import numpy as np
 from utils import load_model_d, load_model_g, merge_pred, normalize_numpy, inverse_normalize_torch, diffusion_inverse_transform, get_scale
 from pic import pic_process
@@ -12,10 +12,10 @@ if __name__ == "__main__":
     model_g = load_model_g()
 
     # Load data
-    input1 = np.load('2017-12-31T18:00:00.npy') # [69, 721, 1440]
-    input2 = np.load('2018-01-01T00:00:00.npy') # [69, 721, 1440]
-    target = np.load('2018-01-01T06:00:00.npy') # [69, 721, 1440]
-    climat = np.load('climatology-2018-01-01T06:00:00.npy') # [69, 721, 1440]
+    input1 = np.load('./data/2017-12-31T18:00:00.npy') # [69, 721, 1440]
+    input2 = np.load('./data/2018-01-01T00:00:00.npy') # [69, 721, 1440]
+    target = np.load('./data/2018-01-01T06:00:00.npy') # [69, 721, 1440]
+    climat = np.load('./data/climatology-2018-01-01T06:00:00.npy') # [69, 721, 1440]
 
     # Add batch dimension
     input1 = np.expand_dims(input1, axis=0) # [1, 69, 721, 1440]
@@ -44,11 +44,11 @@ if __name__ == "__main__":
     climat = torch.from_numpy(climat).to(device)
     model_g_pred = merge_pred(diffusion_out, model_d_pred, climat)
 
-    # Run ExEnsemble
-    print("[3] ExEnsemble")
+    # Run ExBooster
+    print("[3] ExBooster")
     scale = get_scale(model_g_pred)
-    # Setting device='gpu' can speed up ExEnsemble, but it also requires more memory.
-    ens_pred = ExEnsemble(pred=model_g_pred[:,:69], ensembles_scale=scale, device='cpu')
+    # Setting device='gpu' can speed up ExBooster, but it also requires more memory.
+    ens_pred = ExBooster(pred=model_g_pred[:,:69], noise_scale=scale, device='cpu')
 
     # Check mse to ensure correct operation. When running correctly, the MSE is about 0.0051
     target = torch.from_numpy(target).to(device)

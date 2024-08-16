@@ -7,14 +7,14 @@ import onnx
 import onnxruntime as ort
 
 
-data_mean = np.load('data_mean.npy')[np.newaxis, :, np.newaxis, np.newaxis]
-data_std = np.load('data_std.npy')[np.newaxis, :, np.newaxis, np.newaxis]
+data_mean = np.load('./data/data_mean.npy')[np.newaxis, :, np.newaxis, np.newaxis]
+data_std = np.load('./data/data_std.npy')[np.newaxis, :, np.newaxis, np.newaxis]
 
-diffusion_min = np.load('diffusion_min.npy')[np.newaxis, :, np.newaxis, np.newaxis]
-diffusion_max = np.load('diffusion_max.npy')[np.newaxis, :, np.newaxis, np.newaxis]
+diffusion_min = np.load('./data/diffusion_min.npy')[np.newaxis, :, np.newaxis, np.newaxis]
+diffusion_max = np.load('./data/diffusion_max.npy')[np.newaxis, :, np.newaxis, np.newaxis]
 
-min_logvar = np.load('min_logvar.npy')
-max_logvar = np.load('max_logvar.npy')
+min_logvar = np.load('./data/min_logvar.npy')
+max_logvar = np.load('./data/max_logvar.npy')
 
 
 def normalize_numpy(data):
@@ -44,7 +44,7 @@ def diffusion_inverse_transform(diffusion_out):
     return diffusion_out * (data_max - data_min) + data_min
 
 
-def load_model_d(path='model_d.onnx'):
+def load_model_d(path='./checkpoints/model_d.onnx'):
     print("[It takes about a few minutes]")
     model = onnx.load(path)
     # Set the behavier of onnxruntime
@@ -64,7 +64,7 @@ def load_model_d(path='model_d.onnx'):
     return ort_session
 
 
-def load_model_g(diffision_path='model_g.pth'):
+def load_model_g(diffision_path='./checkpoints/model_g.pth'):
     u_net_model = Unet(
                     dim = 128,
                     init_dim = None,
@@ -184,7 +184,7 @@ def merge_pred(diffusion_pred, pred, climat, d_use_k=1.0):
 
 def get_scale(pred, div_rate=3.0):
     '''
-    The scale parameter used in the ExEnsemble module can be hyperparameters or learnable parameters. 
+    The scale parameter used in the ExBooster module can be hyperparameters or learnable parameters. 
     We use "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics" to learn scale.
     '''
     max_logvar_ = torch.tensor(max_logvar, device=pred.device)
